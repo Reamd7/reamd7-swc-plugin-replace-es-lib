@@ -1,0 +1,40 @@
+{
+  "name": "reamd7-swc-plugin-replace-es-lib",
+  "version": "1.7.2",
+  "description": "replace es 2 lib or lib 2 es",
+  "author": "reamd7",
+  "license": "MIT",
+  "homepage": "https://github.com/reamd7/swc-plugin-replace-es-lib#README",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reamd7/swc-plugin-replace-es-lib"
+  },
+  "types": "index.d.ts",
+  "files": [
+    "swc_plugin_replace_es_lib.wasm",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "swc-plugin",
+    "replace-es-lib"
+  ],
+  "main": "swc_plugin_replace_es_lib.wasm",
+  "scripts": {
+    "prepare:target": "rustup target add wasm32-wasip1",
+    "build": "cargo build-wasi --release",
+    "move": "cp ./target/wasm32-wasip1/release/swc_plugin_replace_es_lib.wasm .",
+    "test:cargo": "cargo test",
+    "test:node": "cd ./example && pnpm test",
+    "test": "pnpm test:cargo && pnpm test:node",
+    "prepublishOnly": "pnpm build && pnpm move && pnpm test",
+    "push": "npm publish --access public --registry https://registry.npmjs.com/"
+  },
+  "packageManager": "pnpm@8.15.2",
+  "devDependencies": {
+    "@types/node": "^20.11.21",
+    "tsx": "^4.7.1",
+    "zx": "^7.2.3",
+    "@xn-sakina/mental": "^4.2.1",
+    "typescript": "^5.3.3"
+  }
+}

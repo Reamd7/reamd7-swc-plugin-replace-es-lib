@@ -1,0 +1,11 @@
+/target
+^target/
+target
+
+# npm
+node_modules
+.DS_Store
+
+/swc_plugin_replace_es_lib.wasm
+/example/.swc
+/debug
