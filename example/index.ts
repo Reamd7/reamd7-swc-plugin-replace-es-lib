@@ -20,11 +20,11 @@ console.log(result.code)
 assert(
   result.code.trim() ===
     `
-import { a } from '@tarslib/utils/lib/xxx';
-import { b } from '@tarslib/utils/lib/xxx';
-import * as c from '@tarslib/utils/lib/xxx';
-import("@tarslib/utils/lib/xxx")
-require('@tarslib/utils/lib/xxx')
-console.log(a, b, c)
+import { a } from "@tarslib/utils/lib/xxx";
+import { b } from "@tarslib/utils/lib/xxx";
+import * as c from "@tarslib/utils/lib/xxx";
+import("@tarslib/utils/lib/xxx");
+require("@tarslib/utils/lib/xxx");
+console.log(a, b, c);
   `.trim()
 )

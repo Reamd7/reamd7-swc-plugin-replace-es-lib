@@ -10,6 +10,9 @@ pub struct TransformVisitor {
 
 impl Pass for TransformVisitor {
     fn process(&mut self, program: &mut Program) {
+        // eprintln!("配置信息:");
+        // eprintln!("direction: {}", self.config.direction);
+        // eprintln!("target_module: {:?}", self.config.target_module);
         program.visit_mut_with(self);
     }
 }
@@ -29,15 +32,22 @@ impl VisitMut for TransformVisitor {
         n.visit_mut_children_with(self);
 
         // 检查导入路径是否包含目标模块
+        // eprintln!("处理静态导入: {}", n.src.value);
         for module in &self.config.target_module {
+            // eprintln!("检查模块: {}", module);
             if n.src.value.contains(module) {
                 let src = n.src.value.to_string();
                 let new_src = if self.config.direction == "es2lib" {
+                    // eprintln!("执行 es2lib 替换");
                     src.replace("/es/", "/lib/")
                 } else {
+                    // eprintln!("执行 lib2es 替换");
                     src.replace("/lib/", "/es/")
                 };
-                n.src.value = new_src.into();
+                // eprintln!("替换结果: {} -> {}", src, new_src);
+                n.src = Box::new(
+                    new_src.into(),
+                );
                 break;
             }
         }
@@ -51,13 +61,18 @@ impl VisitMut for TransformVisitor {
             Callee::Import(_) => {
                 if let Some(arg) = n.args.get(0) {
                     if let Expr::Lit(Lit::Str(Str { value, .. })) = &*arg.expr {
+                        // eprintln!("处理动态导入: {}", value);
                         for module in &self.config.target_module {
+                            // eprintln!("检查模块: {}", module);
                             if value.contains(module) {
                                 let new_value = if self.config.direction == "es2lib" {
+                                    // eprintln!("执行 es2lib 替换");
                                     value.replace("/es/", "/lib/")
                                 } else {
+                                    // eprintln!("执行 lib2es 替换");
                                     value.replace("/lib/", "/es/")
                                 };
+                                // eprintln!("替换结果: {} -> {}", value, new_value);
                                 let new_expr = Box::new(Expr::Lit(Lit::Str(Str {
                                     value: new_value.into(),
                                     span: Default::default(),
@@ -75,13 +90,18 @@ impl VisitMut for TransformVisitor {
                     if sym == "require" {
                         if let Some(arg) = n.args.get(0) {
                             if let Expr::Lit(Lit::Str(Str { value, .. })) = &*arg.expr {
+                                // eprintln!("处理 require: {}", value);
                                 for module in &self.config.target_module {
+                                    // eprintln!("检查模块: {}", module);
                                     if value.contains(module) {
                                         let new_value = if self.config.direction == "es2lib" {
+                                            // eprintln!("执行 es2lib 替换");
                                             value.replace("/es/", "/lib/")
                                         } else {
+                                            // eprintln!("执行 lib2es 替换");
                                             value.replace("/lib/", "/es/")
                                         };
+                                        // eprintln!("替换结果: {} -> {}", value, new_value);
                                         let new_expr = Box::new(Expr::Lit(Lit::Str(Str {
                                             value: new_value.into(),
                                             span: Default::default(),
