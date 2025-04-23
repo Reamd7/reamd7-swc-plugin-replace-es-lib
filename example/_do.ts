@@ -1,9 +1,9 @@
 import { transformSync } from '@swc/core'
-import type { ISwcPluginAutoCssModulesConfig } from '../'
+import type { ISwcPluginReplaceEsLibConfig } from '../'
 
 export const transform = (
   code: string,
-  opts: ISwcPluginAutoCssModulesConfig = {}
+  opts: ISwcPluginReplaceEsLibConfig
 ) => {
   return transformSync(code, {
     jsc: {

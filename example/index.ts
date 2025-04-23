@@ -1,27 +1,30 @@
 import assert from 'assert'
 import { transform } from './_do'
 
-const result = transform(`
-import a from 'foo.less';
-import b from 'foo.scss';
-import c from 'foo.sass';
-import d from '../foo.css';
-import e from './foo.styl';
-import { f } from 'foo';
-import * as g from 'foo';
-a, b, c, d, e, f, g;
-`)
+const result = transform(
+  `
+import { a } from '@tarslib/utils/es/xxx';
+import { b } from '@tarslib/utils/es/xxx';
+import * as c from '@tarslib/utils/es/xxx';
+import("@tarslib/utils/es/xxx")
+require('@tarslib/utils/es/xxx')
+console.log(a, b, c)
+`,
+  {
+    target_module: ['@tarslib/utils'],
+    direction: 'es2lib',
+  }
+)
+console.log(result.code)
 
 assert(
   result.code.trim() ===
     `
-import a from "foo.less?modules";
-import b from "foo.scss?modules";
-import c from "foo.sass?modules";
-import d from "../foo.css?modules";
-import e from "./foo.styl?modules";
-import { f } from 'foo';
-import * as g from 'foo';
-a, b, c, d, e, f, g;
-`.trim()
+import { a } from '@tarslib/utils/lib/xxx';
+import { b } from '@tarslib/utils/lib/xxx';
+import * as c from '@tarslib/utils/lib/xxx';
+import("@tarslib/utils/lib/xxx")
+require('@tarslib/utils/lib/xxx')
+console.log(a, b, c)
+  `.trim()
 )

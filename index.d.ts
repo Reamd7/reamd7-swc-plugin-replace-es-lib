@@ -1,15 +1,12 @@
-export interface ISwcPluginAutoCssModulesConfig {
+export interface ISwcPluginReplaceEsLibConfig {
   /**
-   * lock core-js package root path
-   * @default undefined
-   * @example dirname(require.resolve('core-js/package.json'))
+   * target module
    */
-  lock_core_js_pkg_path?: string
+  target_module: string[]
 
   /**
-   * auto add style file suffix
-   * @default '?modules'
-   * @example '?module-mark'
+   * es2lib | lib2es
+   * @default 'es2lib'
    */
-  style_file_suffix?: string
+  direction: string
 }

@@ -3,42 +3,27 @@ import { transform } from './_do'
 
 const result = transform(
   `
-import a from 'core-js';
-import b from 'core-js/cc';
-import c from 'core-js/cc/dd';
-
-import 'core-js';
-import 'core-js/cc';
-import 'core-js/cc/dd';
-
-import d from '../core-js';
-import e from './core-js';
-import { f } from 'foo';
-import * as g from 'foo';
-
-a, b, c, d, e, f, g;
-  `,
+import { a } from '@tarslib/utils/lib/xxx';
+import { b } from '@tarslib/utils/lib/xxx';
+import * as c from '@tarslib/utils/lib/xxx';
+import("@tarslib/utils/lib/xxx")
+require('@tarslib/utils/lib/xxx')
+console.log(a, b, c)
+`,
   {
-    lock_core_js_pkg_path: '/core-js/absolute-path',
-    //   dirname(
-    //     require.resolve('core-js/package.json')
-    //   )
+    target_module: ['@tarslib/utils'],
+    direction: 'lib2es',
   }
 )
-
+console.log(result.code)
 assert(
   result.code.trim() ===
     `
-import a from 'core-js';
-import b from "/core-js/absolute-path/cc";
-import c from "/core-js/absolute-path/cc/dd";
-import 'core-js';
-import "/core-js/absolute-path/cc";
-import "/core-js/absolute-path/cc/dd";
-import d from '../core-js';
-import e from './core-js';
-import { f } from 'foo';
-import * as g from 'foo';
-a, b, c, d, e, f, g;
+import { a } from '@tarslib/utils/es/xxx';
+import { b } from '@tarslib/utils/es/xxx';
+import * as c from '@tarslib/utils/es/xxx';
+import("@tarslib/utils/es/xxx")
+require('@tarslib/utils/es/xxx')
+console.log(a, b, c)
   `.trim()
 )

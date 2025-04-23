@@ -2,10 +2,9 @@
   "name": "example",
   "private": true,
   "scripts": {
-    "test": "pnpm test:corejs && pnpm test:index && pnpm test:issues",
+    "test": "pnpm test:corejs && pnpm test:index",
     "test:corejs": "tsx ./corejs.ts",
-    "test:index": "tsx ./index.ts",
-    "test:issues": "tsx ./issues/optional-chaining.ts"
+    "test:index": "tsx ./index.ts"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

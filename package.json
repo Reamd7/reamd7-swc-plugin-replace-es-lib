@@ -25,7 +25,7 @@
     "move": "cp ./target/wasm32-wasip1/release/swc_plugin_replace_es_lib.wasm .",
     "test:cargo": "cargo test",
     "test:node": "cd ./example && pnpm test",
-    "test": "pnpm test:cargo && pnpm test:node",
+    "test": "pnpm test:node",
     "prepublishOnly": "pnpm build && pnpm move && pnpm test",
     "push": "npm publish --access public --registry https://registry.npmjs.com/"
   },

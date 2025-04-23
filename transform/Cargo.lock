@@ -116,16 +116,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "replace_es_lib"
-version = "1.6.0"
-dependencies = [
- "serde",
- "serde_json",
- "swc_core",
- "testing 0.35.25",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1080,6 +1070,16 @@ name = "relative-path"
 version = "1.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0df32d82cedd1499386877b062ebe8721f806de80b08d183c70184ef17dd1d42"
+
+[[package]]
+name = "replace_es_lib"
+version = "1.6.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "swc_core",
+ "testing 0.35.25",
+]
 
 [[package]]
 name = "rustc-demangle"
