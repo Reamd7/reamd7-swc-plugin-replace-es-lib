@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "tsx": "^4.19.0",
-    "@swc/core": "1.10.9",
-    "core-js": "^3.36.0"
+    "@swc/core": "1.11.21",
+    "core-js": "3.41.0"
   }
 }
